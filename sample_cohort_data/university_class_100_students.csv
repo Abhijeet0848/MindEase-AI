@@ -1,0 +1,101 @@
+Age,Gender,Country,Academic_Level,Most_Used_Platform,Purpose_Of_Use,Avg_Daily_Usage_Hours,Daily_Unlocks,Study_Hours,Physical_Activity_Hours,Sleep_Hours_Per_Night,Stress_Level
+22,Male,Germany,Undergraduate,WeChat,News,7.7,85,3.4,1.8,6.1,Low
+24,Female,Turkey,Undergraduate,KakaoTalk,Networking,7.6,127,7.1,0.8,8.1,Very High
+22,Female,Mexico,High School,KakaoTalk,News,2.7,40,5.8,0.2,5.9,Low
+21,Male,Mexico,Undergraduate,WeChat,News,4.6,40,5.7,1.2,7.8,Very High
+26,Male,Mexico,High School,Snapchat,Entertainment,8.5,94,3.5,1.7,5.1,Medium
+23,Male,UK,High School,YouTube,Education,8.2,48,7.4,1.0,4.8,Medium
+19,Male,Mexico,Undergraduate,YouTube,Entertainment,5.3,43,8.0,1.3,4.7,Medium
+20,Male,France,Undergraduate,YouTube,Education,4.7,45,6.9,1.4,8.5,Medium
+18,Male,Turkey,Graduate,VKontakte,Entertainment,7.7,70,6.4,2.0,6.3,Very High
+22,Female,Australia,High School,YouTube,Networking,2.7,69,3.1,1.5,4.6,High
+22,Male,Germany,Undergraduate,Twitter,Education,7.9,90,6.2,1.9,6.5,Very High
+22,Male,Other,Undergraduate,Snapchat,Education,2.1,133,2.1,1.5,6.2,High
+19,Female,France,Graduate,YouTube,News,4.7,77,5.2,0.9,5.7,Low
+20,Female,Australia,High School,Snapchat,News,5.8,30,4.3,1.9,7.9,Low
+20,Female,Other,High School,LINE,Entertainment,7.7,56,2.3,0.6,7.9,High
+25,Female,Canada,Undergraduate,LinkedIn,Education,2.6,88,4.2,1.0,5.8,Low
+20,Female,Germany,High School,Facebook,Entertainment,6.5,124,2.3,0.9,7.5,Very High
+25,Female,India,Undergraduate,Facebook,Entertainment,8.5,81,5.8,1.3,4.8,Very High
+22,Female,Mexico,High School,Snapchat,News,5.1,49,3.7,1.5,6.8,High
+23,Male,Other,High School,WhatsApp,Networking,3.5,35,6.0,0.8,8.2,Medium
+19,Male,Mexico,High School,Snapchat,News,3.9,49,4.7,1.7,4.6,Medium
+18,Male,UK,Undergraduate,WhatsApp,Education,8.3,58,6.9,2.0,5.6,Low
+20,Male,Mexico,Undergraduate,LinkedIn,Entertainment,7.7,124,3.4,0.5,5.1,Low
+21,Female,Australia,Graduate,YouTube,Education,3.5,60,4.2,1.3,6.7,Very High
+21,Male,India,High School,VKontakte,News,5.9,115,5.8,1.5,8.3,Medium
+23,Female,Mexico,Graduate,TikTok,Entertainment,3.7,125,7.1,1.6,7.5,Very High
+19,Female,India,High School,WeChat,Networking,3.5,136,6.8,1.2,7.6,Low
+23,Female,France,Undergraduate,TikTok,Entertainment,4.7,52,3.0,0.4,4.5,Very High
+20,Male,India,Graduate,Twitter,News,5.2,69,6.5,0.6,8.3,Low
+24,Male,Other,Undergraduate,Twitter,Education,5.1,132,3.6,0.8,8.2,Low
+25,Male,UK,Undergraduate,Twitter,Networking,6.8,131,2.6,0.6,5.3,Low
+18,Female,Other,Graduate,Facebook,News,4.9,100,3.1,1.3,4.7,Low
+25,Male,India,Graduate,LinkedIn,Networking,5.9,76,2.9,2.0,6.0,Very High
+22,Female,Other,Graduate,YouTube,Networking,2.7,48,5.1,0.5,8.1,High
+18,Male,France,Graduate,YouTube,Education,4.3,89,3.3,0.1,7.6,High
+23,Female,Mexico,Undergraduate,Facebook,Education,6.3,110,5.9,1.1,6.7,Low
+21,Female,Other,High School,WhatsApp,News,2.7,53,3.8,1.9,7.3,High
+21,Female,UK,Undergraduate,VKontakte,News,7.8,95,5.8,0.6,8.4,Medium
+19,Female,Other,Graduate,TikTok,News,5.6,91,7.3,0.8,4.8,High
+19,Female,France,Graduate,TikTok,Networking,8.4,137,6.9,1.4,5.8,Low
+26,Male,India,Undergraduate,WhatsApp,Education,6.8,101,2.3,1.7,6.6,Medium
+25,Male,India,Undergraduate,WhatsApp,Networking,4.7,117,5.8,1.4,8.0,Low
+26,Female,UK,Undergraduate,Instagram,Entertainment,4.3,69,3.3,1.7,4.6,Very High
+22,Female,USA,High School,Instagram,Entertainment,6.2,108,7.8,0.7,8.1,High
+23,Female,Australia,High School,Twitter,News,4.1,45,6.8,0.2,8.5,Very High
+25,Female,UK,Undergraduate,KakaoTalk,Entertainment,5.8,95,4.5,0.1,4.8,Very High
+26,Male,Other,Undergraduate,KakaoTalk,Entertainment,5.1,72,3.6,0.2,7.2,Medium
+19,Male,Germany,Undergraduate,KakaoTalk,Entertainment,6.6,124,7.3,0.7,8.1,Very High
+22,Female,Turkey,Graduate,YouTube,Entertainment,5.4,101,2.3,1.1,7.7,High
+25,Female,USA,Graduate,LinkedIn,Education,3.4,36,5.3,1.1,8.0,Low
+22,Female,UK,Undergraduate,LINE,Entertainment,4.4,139,4.2,1.7,7.8,Low
+20,Male,Canada,Graduate,VKontakte,News,6.9,59,6.0,1.6,6.3,High
+19,Female,UK,High School,Instagram,Education,3.2,110,4.1,1.5,6.6,Low
+19,Female,France,Graduate,KakaoTalk,News,3.5,99,4.9,1.8,4.7,Very High
+20,Male,Australia,Undergraduate,WeChat,News,8.8,82,4.7,0.6,5.5,Low
+18,Male,France,High School,Instagram,Networking,6.6,124,6.0,1.1,7.9,High
+20,Male,Australia,Graduate,VKontakte,Entertainment,2.0,127,6.0,0.0,5.5,Very High
+26,Female,Turkey,High School,WhatsApp,Networking,6.6,91,7.9,1.8,7.3,Medium
+21,Male,USA,Undergraduate,LINE,Education,5.1,58,5.1,1.9,7.2,Low
+22,Female,USA,High School,Snapchat,Education,2.2,82,4.9,1.1,7.6,High
+21,Male,Mexico,Graduate,WeChat,Education,5.7,123,5.0,1.8,4.8,High
+24,Female,UK,Graduate,TikTok,Networking,8.8,123,3.4,1.4,5.2,Low
+26,Male,Australia,Graduate,Instagram,Education,6.7,90,3.8,0.5,8.0,Medium
+18,Female,USA,Graduate,Snapchat,Education,4.3,130,3.7,0.0,7.2,High
+22,Male,UK,High School,LINE,Education,7.2,43,4.1,0.4,5.2,Low
+19,Male,UK,High School,TikTok,Entertainment,4.3,137,5.8,0.1,4.8,Very High
+21,Male,Other,Undergraduate,Twitter,Entertainment,7.3,133,7.2,1.9,6.1,Medium
+25,Male,Turkey,Graduate,Twitter,News,5.1,81,6.5,1.4,5.8,Medium
+22,Female,Other,Graduate,Twitter,News,8.2,68,3.6,0.3,5.6,Very High
+25,Female,Canada,Undergraduate,LinkedIn,Entertainment,4.1,121,7.5,0.2,5.2,Low
+24,Female,Turkey,Undergraduate,KakaoTalk,News,4.7,126,5.8,0.1,4.6,High
+19,Female,Canada,High School,LINE,Education,3.3,34,3.4,1.5,5.4,Very High
+21,Female,USA,Graduate,WeChat,News,8.6,127,4.4,1.1,8.4,Medium
+18,Male,Germany,Undergraduate,Snapchat,Networking,5.4,79,5.6,0.7,5.5,Low
+20,Male,Australia,Graduate,LINE,Networking,8.6,110,2.6,1.6,5.7,Low
+18,Male,UK,Graduate,YouTube,Education,8.7,106,3.4,0.8,5.8,Low
+19,Female,Australia,High School,VKontakte,Education,2.6,53,6.6,0.8,8.3,Very High
+25,Male,Turkey,High School,LINE,Networking,3.5,99,3.6,1.3,5.6,Medium
+26,Male,USA,Undergraduate,Twitter,Education,7.3,110,7.5,1.9,5.3,High
+21,Male,India,Graduate,Facebook,Education,4.9,79,7.4,0.8,6.7,High
+21,Male,Other,Graduate,WhatsApp,Education,7.9,76,6.7,0.9,8.1,Very High
+26,Female,India,Graduate,Facebook,Entertainment,6.5,67,3.2,1.0,5.8,Medium
+26,Male,France,High School,WhatsApp,Entertainment,4.5,66,3.5,0.6,6.2,High
+20,Male,UK,Undergraduate,Instagram,Education,6.4,90,7.5,0.1,6.2,High
+22,Female,France,Undergraduate,WhatsApp,Networking,6.3,36,6.7,1.7,6.5,High
+26,Male,India,Undergraduate,Twitter,Education,8.0,123,5.7,1.6,6.7,Low
+19,Male,Australia,Undergraduate,Twitter,Networking,8.0,66,6.6,2.0,5.8,Very High
+24,Male,Mexico,High School,TikTok,Entertainment,7.0,137,3.5,1.4,7.7,Very High
+18,Male,India,High School,WeChat,News,8.6,108,6.7,1.1,8.3,Very High
+23,Male,Canada,High School,Snapchat,Education,4.4,121,3.9,1.0,7.5,Very High
+18,Male,Turkey,Graduate,Instagram,Networking,3.1,120,6.0,0.1,8.2,Very High
+25,Male,Mexico,Graduate,Twitter,News,5.8,83,6.6,1.0,5.1,High
+25,Female,USA,Graduate,TikTok,Education,4.8,136,7.2,1.2,8.5,Very High
+23,Female,Mexico,High School,WeChat,Networking,5.2,37,6.9,0.4,5.8,Medium
+22,Male,Australia,Graduate,WhatsApp,Education,6.9,52,2.9,0.7,5.4,Medium
+20,Female,Turkey,High School,Facebook,Education,8.3,45,5.7,0.1,8.3,High
+20,Male,USA,Undergraduate,KakaoTalk,News,6.6,129,4.3,0.7,6.2,Low
+26,Male,France,High School,WhatsApp,Networking,3.1,137,2.8,1.1,6.7,High
+25,Male,UK,High School,WhatsApp,Education,2.9,44,6.7,1.9,5.8,Low
+26,Female,Australia,High School,TikTok,News,8.4,30,5.5,1.4,6.5,Medium

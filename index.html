@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MindEase.AI — AI Student Emotional Wellness & Habit Intelligence</title>
+  <meta name="description" content="AI platform predicting student emotional wellness score with Explainable AI, What-If counterfactual habit simulation, and personalized action plans.">
+
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%234f46e5'/%3E%3Cpath d='M9 16h3.5l2-5 3.5 10 2-5h3' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          screens: {
+            'xs': '475px',
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-[#f8fafc] text-[#0f172a] font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-600 selection:text-white overflow-x-hidden">
+
+  <!-- Responsive Navigation Header -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Brand Logo -->
+        <div class="brand-logo-container flex items-center space-x-2.5 sm:space-x-3 cursor-pointer group select-none shrink-0" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <div class="brand-icon-box relative w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-700 flex items-center justify-center shadow-md shadow-indigo-500/20 shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-indigo-500/35 border border-indigo-400/30">
+            <svg class="w-5 h-5 sm:w-6.5 sm:h-6.5 transition-transform duration-300 group-hover:scale-110 drop-shadow" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4.5C10.8 4.5 6.5 8.8 6.5 14.2C6.5 18 8.6 21.3 11.6 23L16 27.5L20.4 23C23.4 21.3 25.5 18 25.5 14.2C25.5 8.8 21.2 4.5 16 4.5Z" fill="white" fill-opacity="0.22" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M10 14.5H13L14.5 10.5L17.5 18.5L19 14.5H22" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="16" cy="8" r="1.5" fill="#facc15"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="text-base sm:text-xl font-black font-heading tracking-tight text-slate-900 flex items-center">
+                Mind<span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Ease</span>
+                <span class="text-indigo-600 font-mono text-sm sm:text-base ml-0.5">.</span><span class="text-[10px] sm:text-xs font-black tracking-wider uppercase text-indigo-600 font-mono ml-0.5">AI</span>
+              </span>
+              <span class="hidden lg:inline-flex px-1.5 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 shrink-0">Wellness Intelligence</span>
+            </div>
+            <span class="hidden sm:block text-[10px] sm:text-xs text-slate-500 font-bold tracking-tight">AI Student Emotional Wellness & Habit Platform</span>
+          </div>
+        </div>
+
+        <!-- Header Actions: Desktop (lg and up) -->
+        <div class="hidden lg:flex items-center space-x-1.5 text-xs">
+          <!-- ML Model Arena -->
+          <button type="button" onclick="openModal('model-arena-modal')" class="btn-secondary-hover px-2.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200 flex items-center shadow-xs text-xs">
+            <i class="fa-solid fa-brain mr-1.5 text-indigo-600"></i>
+            <span>Model Arena</span>
+          </button>
+
+          <!-- API Playground -->
+          <button type="button" onclick="openModal('api-playground-modal')" class="btn-secondary-hover px-2.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200 flex items-center shadow-xs text-xs">
+            <i class="fa-solid fa-code mr-1.5 text-indigo-600"></i>
+            <span>API Playground</span>
+          </button>
+
+          <!-- Batch CSV Predict -->
+          <button type="button" onclick="openModal('batch-csv-modal')" class="btn-secondary-hover px-2.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200 flex items-center shadow-xs text-xs">
+            <i class="fa-solid fa-file-csv mr-1.5 text-emerald-600"></i>
+            <span>Batch CSV</span>
+          </button>
+
+          <!-- Focus Audio & Music Dock Toggle -->
+          <button type="button" id="soundscape-btn" onclick="toggleSoundscapeBar()" class="btn-secondary-hover px-2.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200 flex items-center shadow-xs text-xs">
+            <i class="fa-solid fa-headphones mr-1.5 text-violet-600" id="soundscape-btn-icon"></i>
+            <span>Focus Audio</span>
+            <span id="soundscape-live-indicator" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-1.5 hidden"></span>
+          </button>
+
+          <!-- 4-7-8 Breathing Guide -->
+          <button type="button" onclick="openModal('pacer-modal')" class="btn-secondary-hover px-2.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl border border-indigo-200 flex items-center shadow-xs text-xs">
+            <i class="fa-solid fa-wind mr-1.5 text-indigo-600 animate-pulse"></i>
+            <span>4-7-8 Breathe</span>
+          </button>
+
+          <!-- Export Clinical PDF -->
+          <button type="button" onclick="exportClinicalReport()" class="btn-secondary-hover px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-black rounded-xl border border-rose-200 flex items-center shadow-xs text-xs">
+            <i class="fa-solid fa-file-pdf mr-1.5 text-rose-600"></i>
+            <span>Export PDF</span>
+          </button>
+        </div>
+
+        <!-- Header Actions: Mobile & Tablet (< lg) -->
+        <div class="flex lg:hidden items-center space-x-1.5 text-xs relative">
+          <!-- 4-7-8 Breathe (compact on sm) -->
+          <button type="button" onclick="openModal('pacer-modal')" class="hidden sm:flex btn-secondary-hover px-2 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl border border-indigo-200 items-center shadow-xs text-[11px]">
+            <i class="fa-solid fa-wind mr-1 text-indigo-600"></i>
+            <span>Breathe</span>
+          </button>
+
+          <!-- Export PDF -->
+          <button type="button" onclick="exportClinicalReport()" class="btn-secondary-hover px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 font-black rounded-xl border border-rose-200 flex items-center shadow-xs text-[11px]">
+            <i class="fa-solid fa-file-pdf mr-1 text-rose-600"></i>
+            <span>PDF</span>
+          </button>
+
+          <!-- Mobile Tools Dropdown Button -->
+          <button type="button" id="mobile-tools-btn" onclick="toggleMobileToolsMenu(event)" class="btn-secondary-hover px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-black rounded-xl border border-slate-200 flex items-center space-x-1 text-[11px]">
+            <i class="fa-solid fa-layer-group text-indigo-600"></i>
+            <span>Tools</span>
+            <i class="fa-solid fa-chevron-down text-[8px] ml-0.5 text-slate-500"></i>
+          </button>
+
+          <!-- Floating Glass Dropdown Menu -->
+          <div id="mobile-tools-dropdown" class="absolute right-0 top-full mt-2 w-52 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 p-1.5 space-y-0.5 z-50 hidden transition-all">
+            <button type="button" onclick="toggleSoundscapeBar(); toggleMobileToolsMenu()" class="w-full px-2.5 py-2 rounded-xl text-left hover:bg-violet-50 flex items-center space-x-2 text-xs font-bold text-slate-800 transition-colors">
+              <div class="w-6 h-6 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-headphones text-[11px]"></i>
+              </div>
+              <div class="leading-tight">
+                <strong class="block text-xs font-black text-slate-900">Focus Audio & Music</strong>
+                <span class="text-[9px] text-slate-400 font-medium">Ambient music & soundscapes</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openModal('model-arena-modal'); toggleMobileToolsMenu()" class="w-full px-2.5 py-2 rounded-xl text-left hover:bg-indigo-50 flex items-center space-x-2 text-xs font-bold text-slate-800 transition-colors">
+              <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-brain text-[11px]"></i>
+              </div>
+              <div class="leading-tight">
+                <strong class="block text-xs font-black text-slate-900">Model Arena</strong>
+                <span class="text-[9px] text-slate-400 font-medium">7-Algorithm CV Benchmark</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openModal('api-playground-modal'); toggleMobileToolsMenu()" class="w-full px-2.5 py-2 rounded-xl text-left hover:bg-indigo-50 flex items-center space-x-2 text-xs font-bold text-slate-800 transition-colors">
+              <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-code text-[11px]"></i>
+              </div>
+              <div class="leading-tight">
+                <strong class="block text-xs font-black text-slate-900">API Playground</strong>
+                <span class="text-[9px] text-slate-400 font-medium">Python, JS, cURL Code</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openModal('batch-csv-modal'); toggleMobileToolsMenu()" class="w-full px-2.5 py-2 rounded-xl text-left hover:bg-emerald-50 flex items-center space-x-2 text-xs font-bold text-slate-800 transition-colors">
+              <div class="w-6 h-6 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-file-csv text-[11px]"></i>
+              </div>
+              <div class="leading-tight">
+                <strong class="block text-xs font-black text-slate-900">Batch CSV</strong>
+                <span class="text-[9px] text-slate-400 font-medium">Cohort Upload & Analysis</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openModal('pacer-modal'); toggleMobileToolsMenu()" class="sm:hidden w-full px-2.5 py-2 rounded-xl text-left hover:bg-indigo-50 flex items-center space-x-2 text-xs font-bold text-slate-800 transition-colors">
+              <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-wind text-[11px]"></i>
+              </div>
+              <div class="leading-tight">
+                <strong class="block text-xs font-black text-slate-900">4-7-8 Breathe</strong>
+                <span class="text-[9px] text-slate-400 font-medium">Neuro-Vagal Reset</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Ambient Focus Audio & Music Bar (Collapsible dock) -->
+  <div id="soundscape-bar" class="bg-indigo-950 text-white border-b border-indigo-900/50 py-3 px-3.5 sm:px-6 shadow-lg hidden transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+      
+      <!-- Left: Title & Track Info -->
+      <div class="flex items-center space-x-2.5">
+        <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0"></div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-black tracking-wider text-[11px] text-indigo-200 uppercase font-heading">Focus Audio & Music</span>
+            <span id="active-track-badge" class="px-2 py-0.5 rounded-md bg-indigo-900/80 text-violet-200 text-[10px] font-bold border border-indigo-700/60 hidden sm:inline-block">🎵 Zen Serenity</span>
+          </div>
+          <span class="text-slate-400 text-[10px] hidden lg:inline">Synthesizer & Calming Binaural Soundscapes</span>
+        </div>
+      </div>
+      
+      <!-- Center: Controls (Music + Soundscapes) -->
+      <div class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+        <!-- Music Play / Next -->
+        <div class="flex items-center space-x-1 bg-indigo-900/70 p-0.5 rounded-xl border border-indigo-700/50">
+          <button type="button" onclick="MusicPlayerEngine.toggle()" id="soundbar-music-btn" class="px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white font-black text-[11px] flex items-center space-x-1.5 transition-all shadow-xs" title="Play / Pause Calming Music">
+            <i class="fa-solid fa-play text-[10px]" id="soundbar-music-icon"></i>
+            <span id="soundbar-music-text">Play Music</span>
+          </button>
+          <button type="button" onclick="MusicPlayerEngine.nextTrack()" class="px-2 py-1.5 rounded-lg hover:bg-indigo-800 text-indigo-200 hover:text-white text-[11px] transition-colors" title="Next Music Track">
+            <i class="fa-solid fa-forward-step text-[10px]"></i>
+          </button>
+        </div>
+
+        <!-- Ambient Soundscapes -->
+        <button type="button" onclick="SoundscapeEngine.toggle('rain')" id="sound-rain-btn" class="px-2.5 py-1.5 rounded-xl bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 hover:text-white font-bold text-[11px] flex items-center space-x-1.5 transition-all border border-indigo-800/40">
+          <i class="fa-solid fa-cloud-rain"></i>
+          <span>Rainfall</span>
+        </button>
+        <button type="button" onclick="SoundscapeEngine.toggle('brown')" id="sound-brown-btn" class="px-2.5 py-1.5 rounded-xl bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 hover:text-white font-bold text-[11px] flex items-center space-x-1.5 transition-all border border-indigo-800/40">
+          <i class="fa-solid fa-water"></i>
+          <span>Deep Calm</span>
+        </button>
+        <button type="button" onclick="SoundscapeEngine.toggle('alpha')" id="sound-alpha-btn" class="px-2.5 py-1.5 rounded-xl bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 hover:text-white font-bold text-[11px] flex items-center space-x-1.5 transition-all border border-indigo-800/40">
+          <i class="fa-solid fa-wave-square"></i>
+          <span>10Hz Alpha</span>
+        </button>
+      </div>
+
+      <!-- Right: Volume & Close -->
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-volume-low text-indigo-300 text-xs"></i>
+        <input type="range" min="0" max="1" step="0.05" value="0.5" id="soundscape-volume" oninput="SoundscapeEngine.setVolume(this.value); MusicPlayerEngine.setVolume(this.value);" class="w-20 accent-indigo-400 cursor-pointer h-1.5 bg-indigo-900 rounded-lg" title="Volume">
+        <button type="button" onclick="SoundscapeEngine.stopAll(); MusicPlayerEngine.pause();" class="p-1.5 text-indigo-400 hover:text-rose-300 text-xs rounded-lg hover:bg-indigo-900/60 transition-colors ml-1" title="Stop All Audio">
+          <i class="fa-solid fa-stop"></i>
+        </button>
+        <button type="button" onclick="toggleSoundscapeBar()" class="p-1.5 text-indigo-400 hover:text-white text-xs rounded-lg hover:bg-indigo-900/60 transition-colors" title="Close Bar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Responsive Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-7 relative z-10">
+    
+    <!-- Hero Banner & Responsive 1-Click Presets -->
+    <div class="wellness-card mb-5 sm:mb-7 p-4.5 sm:p-7">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
+        <div class="space-y-1.5 sm:space-y-2 max-w-2xl">
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase tracking-wider">
+              💎 Emotional Wellness Platform
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-wider">
+              5,000+ Student Benchmark
+            </span>
+          </div>
+          <h1 class="text-xl sm:text-3xl font-black font-heading text-slate-900 tracking-tight leading-tight">
+            Student Mental Health & <span class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 bg-clip-text text-transparent">Habit Signal Analyzer</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+            AI-driven emotional health assessment powered by an ExtraTrees pipeline (92.30% R² Accuracy). Quantifies lifestyle equilibrium, Explainable AI factor attributions, and counterfactual habit optimization.
+          </p>
+        </div>
+
+        <!-- 1-Click Persona Presets -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-3.5 space-y-2 w-full lg:w-80 shrink-0">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-black uppercase tracking-wider text-slate-700 flex items-center font-heading">
+              <i class="fa-solid fa-bolt text-indigo-600 mr-1.5 text-xs"></i> 1-Click Archetypes
+            </span>
+            <span class="text-[9px] text-slate-400 font-extrabold uppercase">Instant Fill</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button type="button" onclick="loadPreset('high_stress')" class="btn-preset-hover p-2 bg-white rounded-xl border border-slate-200 text-left transition-all min-w-0">
+              <div class="flex items-center space-x-1.5 min-w-0">
+                <span class="text-sm shrink-0">⚡</span>
+                <div class="leading-tight min-w-0 flex-1">
+                  <strong class="text-[10.5px] xs:text-[11px] block font-black text-slate-900 truncate">Exam Stress</strong>
+                  <span class="text-[8.5px] xs:text-[9px] text-slate-500 font-bold truncate block">11h Screen • 4h Sleep</span>
+                </div>
+              </div>
+            </button>
+
+            <button type="button" onclick="loadPreset('balanced')" class="btn-preset-hover p-2 bg-white rounded-xl border border-slate-200 text-left transition-all min-w-0">
+              <div class="flex items-center space-x-1.5 min-w-0">
+                <span class="text-sm shrink-0">🌱</span>
+                <div class="leading-tight min-w-0 flex-1">
+                  <strong class="text-[10.5px] xs:text-[11px] block font-black text-slate-900 truncate">Balanced</strong>
+                  <span class="text-[8.5px] xs:text-[9px] text-slate-500 font-bold truncate block">8h Sleep • 2h Sport</span>
+                </div>
+              </div>
+            </button>
+
+            <button type="button" onclick="loadPreset('night_owl')" class="btn-preset-hover p-2 bg-white rounded-xl border border-slate-200 text-left transition-all min-w-0">
+              <div class="flex items-center space-x-1.5 min-w-0">
+                <span class="text-sm shrink-0">🦉</span>
+                <div class="leading-tight min-w-0 flex-1">
+                  <strong class="text-[10.5px] xs:text-[11px] block font-black text-slate-900 truncate">Night Owl</strong>
+                  <span class="text-[8.5px] xs:text-[9px] text-slate-500 font-bold truncate block">9h Screen • High Unlocks</span>
+                </div>
+              </div>
+            </button>
+
+            <button type="button" onclick="loadPreset('academic')" class="btn-preset-hover p-2 bg-white rounded-xl border border-slate-200 text-left transition-all min-w-0">
+              <div class="flex items-center space-x-1.5 min-w-0">
+                <span class="text-sm shrink-0">🎯</span>
+                <div class="leading-tight min-w-0 flex-1">
+                  <strong class="text-[10.5px] xs:text-[11px] block font-black text-slate-900 truncate">Overachiever</strong>
+                  <span class="text-[8.5px] xs:text-[9px] text-slate-500 font-bold truncate block">8h Study • Med Stress</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid: 12 Cols Total -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-start">
+
+      <!-- LEFT COLUMN: 3-CARD STRUCTURED ASSESSMENT FORM -->
+      <div class="lg:col-span-7 space-y-5">
+        <form id="wellness-form" novalidate class="space-y-4 sm:space-y-5">
+          
+          <!-- Card 1: Academic & Demographic Profile -->
+          <div class="wellness-card p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <h3 class="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center font-heading">
+                <span class="w-5 h-5 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center mr-2 text-[11px] font-black">1</span>
+                Academic & Demographic Profile
+              </h3>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-slate-100 text-slate-600 border border-slate-200 uppercase tracking-wider">Demographics</span>
+            </div>
+
+            <!-- Age, Gender, Country -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="space-y-1.5 field">
+                <label for="age" class="text-slate-800 font-bold flex items-center">
+                  <i class="fa-solid fa-cake-candles text-indigo-500 mr-1.5 text-[11px]"></i> Age (Years)
+                </label>
+                <input type="number" id="age" name="age" min="10" max="100" placeholder="e.g. 21" required class="input-wellness">
+                <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+              </div>
+
+              <div class="space-y-1.5 field">
+                <label for="gender" class="text-slate-800 font-bold flex items-center">
+                  <i class="fa-solid fa-venus-mars text-indigo-500 mr-1.5 text-[11px]"></i> Gender
+                </label>
+                <select id="gender" name="gender" required class="input-wellness">
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+              </div>
+
+              <div class="space-y-1.5 field">
+                <label for="country" class="text-slate-800 font-bold flex items-center">
+                  <i class="fa-solid fa-earth-americas text-indigo-500 mr-1.5 text-[11px]"></i> Country
+                </label>
+                <select id="country" name="country" required class="input-wellness">
+                  <option value="" disabled selected>Select Country</option>
+                  <option value="India">India</option>
+                  <option value="USA">USA</option>
+                  <option value="UK">UK</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="Turkey">Turkey</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+              </div>
+            </div>
+
+            <!-- Degree Level Pills -->
+            <div class="space-y-1.5 field">
+              <label class="text-slate-800 font-bold text-xs flex items-center">
+                <i class="fa-solid fa-graduation-cap text-indigo-500 mr-1.5 text-[11px]"></i> Academic Level
+              </label>
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-2 items-stretch">
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="academic_level" value="High School" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[58px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🎒 High School</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Secondary</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="academic_level" value="Undergraduate" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[58px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🎓 Undergrad</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Bachelor's</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="academic_level" value="Graduate" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[58px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🏛️ Graduate</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Master's / PhD</span>
+                  </div>
+                </label>
+              </div>
+              <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+            </div>
+          </div>
+
+          <!-- Card 2: Digital Screen & Social Media -->
+          <div class="wellness-card p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <h3 class="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center font-heading">
+                <span class="w-5 h-5 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center mr-2 text-[11px] font-black">2</span>
+                Digital Screen & Social Habits
+              </h3>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-slate-100 text-slate-600 border border-slate-200 uppercase tracking-wider">Screen Metrics</span>
+            </div>
+
+            <!-- Platform & Purpose -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="space-y-1.5 field">
+                <label for="most_used_platform" class="text-slate-800 font-bold flex items-center">
+                  <i class="fa-solid fa-mobile-screen-button text-indigo-500 mr-1.5 text-[11px]"></i> Primary Platform
+                </label>
+                <select id="most_used_platform" name="most_used_platform" required class="input-wellness">
+                  <option value="" disabled selected>Select Platform</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="YouTube">YouTube</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="Snapchat">Snapchat</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="Twitter">Twitter / X</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="WeChat">WeChat</option>
+                  <option value="LINE">LINE</option>
+                  <option value="KakaoTalk">KakaoTalk</option>
+                  <option value="VKontakte">VKontakte</option>
+                </select>
+                <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+              </div>
+
+              <div class="space-y-1.5 field">
+                <label for="purpose_of_use" class="text-slate-800 font-bold flex items-center">
+                  <i class="fa-solid fa-bullseye text-indigo-500 mr-1.5 text-[11px]"></i> Primary Purpose
+                </label>
+                <select id="purpose_of_use" name="purpose_of_use" required class="input-wellness">
+                  <option value="" disabled selected>Select Purpose</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Education">Education & Study</option>
+                  <option value="Networking">Networking & Friends</option>
+                  <option value="News">News & Updates</option>
+                </select>
+                <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+              </div>
+            </div>
+
+            <!-- Screen & Unlocks Sliders -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-0.5">
+              <div class="slider-box field">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-hourglass-half text-indigo-500 mr-1.5 text-[11px]"></i> Screen Time
+                  </span>
+                  <span id="screen-val" class="slider-val-badge">0.0h</span>
+                </div>
+                <input type="range" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.5" value="0" class="input-range-wellness" oninput="document.getElementById('screen-val').textContent = parseFloat(this.value).toFixed(1) + 'h'">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                  <span>0h</span>
+                  <span>12h</span>
+                  <span>24h</span>
+                </div>
+              </div>
+
+              <div class="slider-box field">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-lock-open text-sky-500 mr-1.5 text-[11px]"></i> Daily Phone Unlocks
+                  </span>
+                  <span id="unlock-val" class="slider-val-badge">0 unlocks</span>
+                </div>
+                <input type="range" id="daily_unlocks" name="daily_unlocks" min="0" max="250" step="5" value="0" class="input-range-wellness" oninput="document.getElementById('unlock-val').textContent = this.value + ' unlocks'">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                  <span>0</span>
+                  <span>125</span>
+                  <span>250+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Lifestyle & Emotional Balance -->
+          <div class="wellness-card p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <h3 class="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider flex items-center font-heading">
+                <span class="w-5 h-5 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center mr-2 text-[11px] font-black">3</span>
+                Lifestyle, Sleep & Stress Level
+              </h3>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-slate-100 text-slate-600 border border-slate-200 uppercase tracking-wider">Circadian Recovery</span>
+            </div>
+
+            <!-- Study, Exercise & Sleep Sliders -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="slider-box field">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-book-open text-indigo-500 mr-1 text-[11px]"></i> Study
+                  </span>
+                  <span id="study-val" class="slider-val-badge">0.0h</span>
+                </div>
+                <input type="range" id="study_hours" name="study_hours" min="0" max="16" step="0.5" value="0" class="input-range-wellness" oninput="document.getElementById('study-val').textContent = parseFloat(this.value).toFixed(1) + 'h'">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                  <span>0h</span>
+                  <span>8h</span>
+                  <span>16h</span>
+                </div>
+              </div>
+
+              <div class="slider-box field">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-person-running text-emerald-500 mr-1 text-[11px]"></i> Exercise
+                  </span>
+                  <span id="exercise-val" class="slider-val-badge">0.0h</span>
+                </div>
+                <input type="range" id="physical_activity_hours" name="physical_activity_hours" min="0" max="8" step="0.5" value="0" class="input-range-wellness" oninput="document.getElementById('exercise-val').textContent = parseFloat(this.value).toFixed(1) + 'h'">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                  <span>0h</span>
+                  <span>4h</span>
+                  <span>8h</span>
+                </div>
+              </div>
+
+              <div class="slider-box field">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-moon text-indigo-500 mr-1 text-[11px]"></i> Sleep
+                  </span>
+                  <span id="sleep-val" class="slider-val-badge">0.0h</span>
+                </div>
+                <input type="range" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="16" step="0.5" value="0" class="input-range-wellness" oninput="document.getElementById('sleep-val').textContent = parseFloat(this.value).toFixed(1) + 'h'">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                  <span>0h</span>
+                  <span>8h</span>
+                  <span>16h</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Perceived Stress Level (4 Clinical Options) -->
+            <div class="space-y-1.5 field">
+              <label class="text-slate-800 font-bold text-xs flex items-center">
+                <i class="fa-solid fa-brain text-indigo-500 mr-1.5 text-[11px]"></i> Perceived Stress Level
+              </label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 items-stretch">
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="stress_level" value="Low" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[54px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🟢 Low</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Calm & Balanced</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="stress_level" value="Medium" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[54px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🟡 Medium</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Typical Routine</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="stress_level" value="High" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[54px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🟠 High</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Exam Pressure</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer flex flex-col h-full">
+                  <input type="radio" name="stress_level" value="Very High" class="peer sr-only">
+                  <div class="radio-pill h-full flex flex-col items-center justify-between py-2 px-1 text-center min-h-[54px]">
+                    <span class="radio-title font-black text-[11px] sm:text-xs leading-tight">🔴 Very High</span>
+                    <span class="radio-subtitle text-[9px] sm:text-[10px] font-semibold mt-0.5">Critical Burnout</span>
+                  </div>
+                </label>
+              </div>
+              <span class="error-msg text-[11px] text-rose-600 font-bold"></span>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-1">
+            <button type="submit" id="submit-btn" class="w-full py-3 sm:py-3.5 px-3 sm:px-6 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-indigo-600/25 transition-all duration-300 hover:shadow-indigo-600/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center space-x-2 font-heading">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-300 shrink-0"></i>
+              <span class="truncate">Calculate Emotional Wellness Score</span>
+              <i class="fa-solid fa-arrow-right text-xs ml-1 shrink-0"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT COLUMN: RESULTS DASHBOARD (12 Cols on Mobile/Tablet, 5 Cols on Desktop) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-20 space-y-4">
+        
+        <!-- IDLE STATE -->
+        <div id="state-idle" class="wellness-card p-5 sm:p-6 text-center space-y-3">
+          <div class="idle-pulse-box w-14 sm:w-16 h-14 sm:h-16 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto text-xl sm:text-2xl shadow-inner border border-indigo-100">
+            <i class="fa-solid fa-heart-pulse animate-pulse"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-base sm:text-lg font-black font-heading text-slate-900">Awaiting Lifestyle Assessment</h3>
+            <p class="text-xs text-slate-500 leading-relaxed font-medium max-w-xs mx-auto">
+              Fill in your routine or click a quick preset to compute your emotional wellness index, Explainable AI breakdown, and What-If simulator.
+            </p>
+          </div>
+        </div>
+
+        <!-- LOADING STATE -->
+        <div id="state-loading" class="wellness-card p-8 sm:p-10 text-center space-y-3 hidden">
+          <div class="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div class="space-y-1">
+            <h3 class="text-sm sm:text-base font-black text-slate-900 font-heading">Evaluating Neural Weights…</h3>
+            <p class="text-xs text-slate-500 font-medium">Computing score through Scikit-Learn Pipeline.</p>
+          </div>
+        </div>
+
+        <!-- RESULT DASHBOARD STATE -->
+        <div id="state-result" class="space-y-4 hidden">
+          
+          <!-- Primary Score Card -->
+          <div class="wellness-card p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <span class="text-[11px] font-black uppercase tracking-wider text-slate-500">Emotional Wellness Score</span>
+              <span id="score-band" class="px-2.5 py-0.5 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">
+                Signal: Balanced
+              </span>
+            </div>
+
+            <!-- Responsive SVG Arc Gauge -->
+            <div class="relative flex flex-col items-center justify-center pt-1 w-full max-w-[240px] sm:max-w-[280px] mx-auto">
+              <svg class="w-full h-auto overflow-visible" viewBox="0 0 240 140">
+                <defs>
+                  <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#f43f5e"/>
+                    <stop offset="45%" stop-color="#6366f1"/>
+                    <stop offset="100%" stop-color="#10b981"/>
+                  </linearGradient>
+                </defs>
+                <path d="M 20 130 A 100 100 0 0 1 220 130" fill="none" stroke="#e2e8f0" stroke-width="18" stroke-linecap="round"/>
+                <path id="gauge-fill" d="M 20 130 A 100 100 0 0 1 220 130" fill="none" stroke="url(#gaugeGradient)" stroke-width="18" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" style="transition: stroke-dashoffset 1s ease-out;"/>
+              </svg>
+
+              <div class="text-center absolute bottom-0">
+                <div class="flex items-baseline justify-center">
+                  <span id="score-number" class="text-4xl sm:text-5xl font-black font-mono text-slate-900 tracking-tight">6.07</span>
+                  <span class="text-base sm:text-lg font-bold text-slate-400 ml-1">/ 10</span>
+                </div>
+                <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-indigo-600 font-black block mt-0.5">Wellness Index</span>
+              </div>
+            </div>
+
+            <!-- Statistical Confidence Band Badge -->
+            <div id="confidence-band-box" class="bg-indigo-50/70 border border-indigo-200/80 rounded-xl p-2.5 flex items-center justify-between text-xs">
+              <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-shield-halved text-indigo-600 text-xs"></i>
+                <span class="text-slate-700 font-bold text-[11px]">95% Conformal Confidence:</span>
+              </div>
+              <span id="confidence-band-val" class="font-mono font-black text-indigo-700 text-xs">[5.72 - 6.42]</span>
+            </div>
+
+            <!-- Percentile -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between text-xs">
+              <div class="flex items-center space-x-2">
+                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-black">
+                  <i class="fa-solid fa-users text-xs"></i>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[9px] uppercase font-black">Cohort Standing</span>
+                  <span id="percentile-text" class="text-slate-800 font-bold text-[11px] sm:text-xs">Top 35% among Undergraduates</span>
+                </div>
+              </div>
+              <span id="percentile-badge" class="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 font-mono font-black text-xs border border-indigo-200">P72</span>
+            </div>
+
+            <!-- Context Note -->
+            <p id="score-context" class="text-xs text-slate-700 leading-relaxed text-center bg-slate-50 p-3 rounded-xl border border-slate-200 font-medium">
+              Your rhythm looks fairly steady, with some room to recover and reset.
+            </p>
+          </div>
+
+          <!-- Interactive Intelligence Studio (4 Tabs: Factor Drivers, Goal Optimizer, Action Plan, Habit Radar) -->
+          <div class="wellness-card p-4 sm:p-5 space-y-3.5">
+            
+            <!-- Segmented Tab Navigation -->
+            <div class="grid grid-cols-4 p-1 bg-slate-100 rounded-xl border border-slate-200 gap-1 text-xs">
+              <button type="button" onclick="switchTab('xai')" data-tab="xai" class="tab-btn py-1.5 px-1.5 rounded-lg text-[11px] font-black transition-all bg-indigo-600 text-white shadow-xs flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-magnifying-glass-chart text-[10px]"></i>
+                <span class="truncate">Factors</span>
+              </button>
+              <button type="button" onclick="switchTab('optimizer')" data-tab="optimizer" class="tab-btn py-1.5 px-1.5 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-bullseye text-[10px]"></i>
+                <span class="truncate">Optimizer</span>
+              </button>
+              <button type="button" onclick="switchTab('action')" data-tab="action" class="tab-btn py-1.5 px-1.5 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-list-check text-[10px]"></i>
+                <span class="truncate">Action</span>
+              </button>
+              <button type="button" onclick="switchTab('radar')" data-tab="radar" class="tab-btn py-1.5 px-1.5 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-chart-pie text-[10px]"></i>
+                <span class="truncate">Radar</span>
+              </button>
+            </div>
+
+            <!-- TAB 1: EXPLAINABLE AI (XAI) FACTOR DRIVERS -->
+            <div id="tab-xai" class="tab-pane space-y-2.5">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
+                <span class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+                  <i class="fa-solid fa-brain text-indigo-600 mr-1.5"></i> Model Feature Contributions
+                </span>
+                <span class="text-[10px] text-slate-400 font-black uppercase">Impact Weights</span>
+              </div>
+              <p class="text-[11px] text-slate-600 font-medium">
+                Quantified positive (+) and negative (-) lifestyle drivers evaluated by the ExtraTrees model:
+              </p>
+              <div id="xai-factors-container" class="space-y-1.5 text-xs">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <!-- TAB 2: INVERSE WHAT-IF GOAL OPTIMIZER -->
+            <div id="tab-optimizer" class="tab-pane space-y-3 hidden">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
+                <span class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+                  <i class="fa-solid fa-bullseye text-indigo-600 mr-1.5"></i> Counterfactual Habit Optimizer
+                </span>
+                <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase">AI Solver</span>
+              </div>
+              <p class="text-[11px] text-slate-600 font-medium leading-relaxed">
+                Set your desired target score. The algorithm computes the mathematically minimal habit adjustments to get there.
+              </p>
+
+              <!-- Target Slider -->
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-700">Target Wellness Score:</span>
+                  <span id="optimizer-target-display" class="font-mono font-black text-indigo-600 text-sm">8.00 / 10</span>
+                </div>
+                <input type="range" id="optimizer-target-slider" min="5.0" max="9.8" step="0.1" value="8.0" oninput="updateOptimizerTarget(this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                <div class="flex justify-between text-[9px] text-slate-400 font-bold">
+                  <span>Balanced (6.0)</span>
+                  <span>Target (8.0)</span>
+                  <span>Optimal (9.8)</span>
+                </div>
+              </div>
+
+              <button type="button" onclick="runHabitOptimizer()" id="optimizer-run-btn" class="w-full py-2.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-xl shadow-md shadow-indigo-600/20 transition-all flex items-center justify-center space-x-1.5">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Calculate Minimal Habit Roadmap</span>
+              </button>
+
+              <div id="optimizer-results-container" class="space-y-2 text-xs hidden">
+                <!-- Dynamically injected delta cards -->
+              </div>
+            </div>
+
+            <!-- TAB 3: PERSONALIZED ACTION PLAN -->
+            <div id="tab-action" class="tab-pane space-y-2.5 hidden">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
+                <span class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+                  <i class="fa-solid fa-heart-pulse text-indigo-600 mr-1.5"></i> Tailored Micro-Habit Prescriptions
+                </span>
+                <span class="text-[10px] text-slate-400 font-black uppercase">Daily Routine</span>
+              </div>
+              <div id="action-plan-container" class="space-y-2 text-xs">
+                <!-- Dynamically populated with 3 rich actionable cards -->
+              </div>
+            </div>
+
+            <!-- TAB 4: HABIT RADAR CHART -->
+            <div id="tab-radar" class="tab-pane space-y-2 hidden">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-1">
+                <span class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+                  <i class="fa-solid fa-chart-pie text-indigo-600 mr-1.5"></i> 5-Axis Lifestyle Equilibrium
+                </span>
+                <span class="text-[10px] text-slate-400 font-black uppercase">Benchmark vs You</span>
+              </div>
+              <div class="h-56 relative w-full flex items-center justify-center pt-1">
+                <canvas id="lifestyleRadarChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Bottom Reset Action -->
+            <div class="pt-2 border-t border-slate-100">
+              <button type="button" id="reset-btn" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors flex items-center justify-center space-x-1.5">
+                <i class="fa-solid fa-rotate-left text-[11px]"></i>
+                <span>Reset & Run New Assessment</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ERROR STATE -->
+        <div id="state-error" class="bg-rose-50 border border-rose-200 rounded-2xl p-5 text-center space-y-3 shadow-sm hidden">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center mx-auto text-lg font-black">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <h4 id="error-label" class="text-xs font-black text-rose-900">Submission Error</h4>
+            <p id="error-copy" class="text-[11px] text-rose-800 mt-0.5 font-medium">Could not connect to prediction API.</p>
+          </div>
+          <button type="button" id="error-retry-btn" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg transition-colors">
+            Try Again
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL 1: 4-7-8 Breathing Pacer Modal -->
+  <div id="pacer-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 hidden">
+    <div class="bg-white border border-slate-200 max-w-sm w-full rounded-2xl p-5 sm:p-6 text-center space-y-4 sm:space-y-5 shadow-2xl relative">
+      <button onclick="closeModal('pacer-modal')" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-slate-900 text-base p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="space-y-0.5">
+        <span class="text-[9px] uppercase font-black text-indigo-600 tracking-widest">Neuro-Vagal Reset</span>
+        <h3 class="text-lg font-black font-heading text-slate-900">4-7-8 Breathing Coach</h3>
+        <p class="text-xs text-slate-500 font-medium">Inhale for 4s, hold for 7s, exhale for 8s with soothing synthesized chimes.</p>
+      </div>
+
+      <div class="flex items-center justify-center py-4">
+        <div id="breathing-circle" class="w-28 sm:w-32 h-28 sm:h-32 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center shadow-xl shadow-indigo-500/25 transition-transform duration-1000 border-4 border-white">
+          <span id="breathing-text" class="text-xs font-black text-white uppercase tracking-widest drop-shadow-sm">Ready</span>
+        </div>
+      </div>
+
+      <div class="flex justify-center space-x-2">
+        <button id="pacer-toggle-btn" onclick="BreathingPacer.toggle()" class="btn-secondary-hover px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs rounded-xl shadow-md shadow-indigo-600/25">
+          Start Session
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ML Model Arena & Benchmark Sandbox Modal -->
+  <div id="model-arena-modal" onclick="if(event.target === this) closeModal('model-arena-modal')" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-3 sm:p-4 hidden transition-opacity">
+    <div class="bg-white border border-slate-200 max-w-2xl w-full rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-left space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="closeModal('model-arena-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 text-base p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div>
+        <div class="flex items-center space-x-2 mb-1">
+          <span class="px-2 py-0.5 rounded-md text-[9px] font-black bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase tracking-wider">
+            7-Algorithm Benchmark Arena
+          </span>
+          <span class="px-2 py-0.5 rounded-md text-[9px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase tracking-wider">
+            Champion: 92.30% R²
+          </span>
+        </div>
+        <h3 class="text-base sm:text-lg font-black font-heading text-slate-900">
+          Machine Learning Model Tournament & Benchmark
+        </h3>
+        <p class="text-xs text-slate-500 font-medium">Standardized 5-fold cross validation across candidate regressors:</p>
+      </div>
+
+      <!-- Models List Grid -->
+      <div class="space-y-2 text-xs">
+        <div class="p-3 rounded-xl border-2 border-indigo-500 bg-indigo-50/40 flex items-center justify-between">
+          <div class="space-y-0.5">
+            <div class="flex items-center space-x-2">
+              <span class="px-1.5 py-0.2 rounded text-[9px] font-black bg-indigo-600 text-white uppercase">Champion</span>
+              <strong class="text-slate-900 font-black text-sm">ExtraTrees Regressor (300 Trees)</strong>
+            </div>
+            <p class="text-[10px] text-slate-600">Extreme variance reduction via randomized orthogonal splits. Captures subtle lifestyle non-linearities.</p>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="text-base font-black font-mono text-indigo-600 block">92.30% R²</span>
+            <span class="text-[9px] text-slate-400 font-bold">RMSE: 0.365 • Latency: ~1.8ms</span>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="px-1.5 py-0.2 rounded text-[8px] font-black bg-slate-200 text-slate-700 uppercase">Runner-Up</span>
+              <strong class="text-slate-800 font-bold text-xs">Random Forest Regressor (200 Trees)</strong>
+            </div>
+            <p class="text-[10px] text-slate-500">Robust bootstrap aggregation.</p>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="text-xs font-black font-mono text-slate-900 block">91.82% R²</span>
+            <span class="text-[8px] text-slate-400 font-bold">RMSE: 0.376</span>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="px-1.5 py-0.2 rounded text-[8px] font-black bg-amber-100 text-amber-800 uppercase">Fast Boosting</span>
+              <strong class="text-slate-800 font-bold text-xs">LightGBM Regressor</strong>
+            </div>
+            <p class="text-[10px] text-slate-500">Leaf-wise histogram gradient boosting.</p>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="text-xs font-black font-mono text-slate-900 block">90.87% R²</span>
+            <span class="text-[8px] text-slate-400 font-bold">RMSE: 0.398</span>
+          </div>
+        </div>
+
+        <div class="p-2 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between text-[11px]">
+          <span class="font-bold text-slate-700">• Gradient Boosting Regressor</span>
+          <span class="font-mono font-bold text-slate-600">89.44% R²</span>
+        </div>
+        <div class="p-2 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between text-[11px]">
+          <span class="font-bold text-slate-700">• Ridge Regularized Regressor (L2)</span>
+          <span class="font-mono font-bold text-slate-600">86.41% R²</span>
+        </div>
+        <div class="p-2 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between text-[11px]">
+          <span class="font-bold text-slate-700">• Ordinary Least Squares (Linear)</span>
+          <span class="font-mono font-bold text-slate-600">86.41% R²</span>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <a href="/docs" target="_blank" class="font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+          <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Interactive API Docs
+        </a>
+        <button type="button" onclick="closeModal('model-arena-modal')" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl">
+          Close Arena
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Interactive Developer API Playground Modal -->
+  <div id="api-playground-modal" onclick="if(event.target === this) closeModal('api-playground-modal')" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-3 sm:p-4 hidden transition-opacity">
+    <div class="bg-white border border-slate-200 max-w-xl w-full rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-left space-y-4 shadow-2xl relative">
+      
+      <button onclick="closeModal('api-playground-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 text-base p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div>
+        <div class="flex items-center space-x-2 mb-1">
+          <span class="px-2 py-0.5 rounded-md text-[9px] font-black bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase tracking-wider">
+            FastAPI REST Integration
+          </span>
+          <span class="px-2 py-0.5 rounded-md text-[9px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase tracking-wider">
+            Live Endpoint: /predict
+          </span>
+        </div>
+        <h3 class="text-base sm:text-lg font-black font-heading text-slate-900">
+          Developer API Code Snippets
+        </h3>
+        <p class="text-xs text-slate-500 font-medium">Ready-to-run request payload code generated dynamically:</p>
+      </div>
+
+      <!-- Language Selector Tabs -->
+      <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 gap-1 text-xs">
+        <button type="button" onclick="switchApiTab('python')" data-apitab="python" class="apitab-btn flex-1 py-1 rounded-lg text-[11px] font-bold bg-indigo-600 text-white">Python</button>
+        <button type="button" onclick="switchApiTab('js')" data-apitab="js" class="apitab-btn flex-1 py-1 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900">JavaScript</button>
+        <button type="button" onclick="switchApiTab('curl')" data-apitab="curl" class="apitab-btn flex-1 py-1 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900">cURL</button>
+        <button type="button" onclick="switchApiTab('go')" data-apitab="go" class="apitab-btn flex-1 py-1 rounded-lg text-[11px] font-bold text-slate-600 hover:text-slate-900">Go</button>
+      </div>
+
+      <!-- Code Container with Copy Button -->
+      <div class="relative bg-slate-950 text-slate-200 p-3.5 rounded-xl text-xs font-mono overflow-x-auto max-h-64 scrollbar-thin">
+        <button type="button" onclick="copyApiSnippet()" id="api-copy-btn" class="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-[10px] text-slate-300 font-sans font-bold flex items-center space-x-1">
+          <i class="fa-regular fa-copy"></i>
+          <span>Copy</span>
+        </button>
+        <pre id="api-code-block" class="pt-4 text-[11px] leading-relaxed"><code># Loading...</code></pre>
+      </div>
+
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-[10px] text-slate-400 font-bold">Base URL: <code class="text-indigo-600 font-mono">http://127.0.0.1:8000</code></span>
+        <button type="button" onclick="closeModal('api-playground-modal')" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Batch CSV Assessment & Cohort Analytics Modal -->
+  <div id="batch-csv-modal" onclick="if(event.target === this) closeModal('batch-csv-modal')" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-3 sm:p-4 hidden transition-opacity">
+    <div class="bg-white border border-slate-200 max-w-xl w-full rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-left space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="closeModal('batch-csv-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 text-base p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div>
+        <div class="flex items-center space-x-2 mb-1">
+          <span class="px-2 py-0.5 rounded-md text-[9px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase tracking-wider">
+            Batch Inference Engine
+          </span>
+          <span class="px-2 py-0.5 rounded-md text-[9px] font-black bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-wider">
+            Endpoint: /predict/batch
+          </span>
+        </div>
+        <h3 class="text-base sm:text-lg font-black font-heading text-slate-900">
+          Cohort Wellness Assessment (CSV Upload)
+        </h3>
+        <p class="text-xs text-slate-500 font-medium">Upload student cohort datasets to generate batch predictions and distribution charts.</p>
+      </div>
+
+      <!-- Drag and Drop Box -->
+      <div id="drop-zone" onclick="document.getElementById('csv-file-input').click()" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 bg-slate-50 hover:bg-indigo-50/40 p-6 rounded-2xl text-center cursor-pointer transition-all space-y-2">
+        <input type="file" id="csv-file-input" accept=".csv" class="hidden" onchange="handleCsvUpload(this.files)">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto text-lg">
+          <i class="fa-solid fa-file-arrow-up"></i>
+        </div>
+        <div>
+          <strong class="text-xs font-black text-slate-900 block">Click or Drag & Drop Student CSV</strong>
+          <span class="text-[10px] text-slate-400 font-medium">Supported format: .csv with required student habit columns</span>
+        </div>
+      </div>
+
+      <!-- 1-Click Sample Datasets & Template -->
+      <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
+        <div class="flex items-center justify-between text-[11px]">
+          <strong class="text-slate-800 font-bold flex items-center">
+            <i class="fa-solid fa-folder-open text-indigo-600 mr-1.5"></i> Quick 1-Click Sample Cohorts:
+          </strong>
+          <button type="button" onclick="downloadSampleCsv()" class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center text-[10px]">
+            <i class="fa-solid fa-download mr-1"></i> Download Template
+          </button>
+        </div>
+        <div class="grid grid-cols-2 gap-1.5 text-[11px]">
+          <button type="button" onclick="loadSampleCohort('student_cohort_50.csv')" class="p-2 bg-white rounded-xl border border-slate-200 hover:border-indigo-500 text-left transition-all hover:bg-indigo-50/30">
+            <strong class="text-slate-900 block font-black">👥 50 Mixed Students</strong>
+            <span class="text-[9px] text-slate-500">General population sample</span>
+          </button>
+          <button type="button" onclick="loadSampleCohort('university_class_100_students.csv')" class="p-2 bg-white rounded-xl border border-slate-200 hover:border-indigo-500 text-left transition-all hover:bg-indigo-50/30">
+            <strong class="text-slate-900 block font-black">🎓 100 University Class</strong>
+            <span class="text-[9px] text-slate-500">Full cohort distribution</span>
+          </button>
+          <button type="button" onclick="loadSampleCohort('exam_burnout_group_25.csv')" class="p-2 bg-white rounded-xl border border-slate-200 hover:border-rose-400 text-left transition-all hover:bg-rose-50/30">
+            <strong class="text-rose-900 block font-black">⚡ 25 High Burnout Group</strong>
+            <span class="text-[9px] text-slate-500">Low sleep • High screen</span>
+          </button>
+          <button type="button" onclick="loadSampleCohort('high_wellness_cohort_25.csv')" class="p-2 bg-white rounded-xl border border-slate-200 hover:border-emerald-400 text-left transition-all hover:bg-emerald-50/30">
+            <strong class="text-emerald-900 block font-black">🌱 25 Balanced Group</strong>
+            <span class="text-[9px] text-slate-500">8h sleep • 2h exercise</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Preview Area (Hidden until processed) -->
+      <div id="batch-results-area" class="space-y-3 text-xs hidden">
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="text-[8px] text-slate-400 uppercase font-black block">Total Records</span>
+            <strong id="batch-total-count" class="text-xs font-mono font-black text-slate-900">0</strong>
+          </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded-xl">
+            <span class="text-[8px] text-slate-400 uppercase font-black block">Cohort Mean</span>
+            <strong id="batch-mean-score" class="text-xs font-mono font-black text-indigo-600">0.00</strong>
+          </div>
+          <div class="p-2 bg-emerald-50 border border-emerald-200 rounded-xl">
+            <span class="text-[8px] text-emerald-600 uppercase font-black block">Thriving</span>
+            <strong id="batch-thriving-count" class="text-xs font-mono font-black text-emerald-800">0</strong>
+          </div>
+          <div class="p-2 bg-rose-50 border border-rose-200 rounded-xl">
+            <span class="text-[8px] text-rose-600 uppercase font-black block">High Risk</span>
+            <strong id="batch-risk-count" class="text-xs font-mono font-black text-rose-800">0</strong>
+          </div>
+        </div>
+
+        <button type="button" onclick="downloadAnnotatedCsv()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs flex items-center justify-center space-x-1.5">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Download Processed CSV with AI Scores</span>
+        </button>
+      </div>
+
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-end">
+        <button type="button" onclick="closeModal('batch-csv-modal')" class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEDICATED EXECUTIVE CLINICAL PDF REPORT (Master Printable Document - 1-Click Direct Print) -->
+  <div id="clinical-print-report" class="hidden">
+    <div class="pdf-document-page p-4 sm:p-5 space-y-3">
+      
+      <!-- Top Decorative Ribbon -->
+      <div class="pdf-top-ribbon -mx-4 sm:-mx-5 -mt-4 sm:-mt-5 mb-3"></div>
+
+      <!-- Institutional Header (No Date/Time, Clean Medical Header) -->
+      <div class="flex items-center justify-between border-b border-slate-200 pb-2.5 pdf-avoid-break">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-indigo-500/20">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <h1 class="text-lg font-black font-heading tracking-tight text-slate-900 leading-none">
+                MindEase<span class="text-indigo-600">.AI</span>
+              </h1>
+              <span class="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+                Clinical Intelligence
+              </span>
+            </div>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">
+              Executive Student Emotional Health & Circadian Diagnostic Report
+            </p>
+          </div>
+        </div>
+
+        <div class="text-right text-[9px] text-slate-500 space-y-0.5">
+          <div class="flex items-center justify-end space-x-1.5">
+            <span class="px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-black text-[8px] uppercase tracking-wider">
+              Confidential Medical Assessment
+            </span>
+          </div>
+          <div><strong class="text-slate-800 font-black">Document Ref:</strong> <span id="pdf-report-id" class="font-mono text-indigo-700 font-black">ME-2026-8942-XAI</span></div>
+          <div class="flex items-center justify-end space-x-1 text-[8px] text-slate-400 font-mono">
+            <span>ExtraTrees 300-Tree Pipeline (92.30% R² • MAE 0.44)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: Patient / Student Intake Telemetry -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 grid grid-cols-4 gap-2.5 text-xs pdf-avoid-break">
+        <div class="space-y-0.5">
+          <span class="text-[8px] uppercase font-black tracking-wider text-slate-400 block flex items-center">
+            <i class="fa-solid fa-user text-indigo-500 mr-1 text-[7px]"></i> Patient Profile
+          </span>
+          <strong id="pdf-profile-demo" class="text-slate-900 font-black block text-[11px] leading-tight">21 Yrs • Female</strong>
+          <span class="text-[8px] text-slate-500 font-medium">Adult Student Cohort</span>
+        </div>
+        <div class="space-y-0.5">
+          <span class="text-[8px] uppercase font-black tracking-wider text-slate-400 block flex items-center">
+            <i class="fa-solid fa-graduation-cap text-indigo-500 mr-1 text-[7px]"></i> Academic Tier
+          </span>
+          <strong id="pdf-profile-academic" class="text-slate-900 font-black block text-[11px] leading-tight">Undergraduate</strong>
+          <span class="text-[8px] text-slate-500 font-medium">Higher Education</span>
+        </div>
+        <div class="space-y-0.5">
+          <span class="text-[8px] uppercase font-black tracking-wider text-slate-400 block flex items-center">
+            <i class="fa-solid fa-earth-americas text-indigo-500 mr-1 text-[7px]"></i> Region / Country
+          </span>
+          <strong id="pdf-profile-country" class="text-slate-900 font-black block text-[11px] leading-tight">United States</strong>
+          <span class="text-[8px] text-slate-500 font-medium">Regional Baseline</span>
+        </div>
+        <div class="space-y-0.5">
+          <span class="text-[8px] uppercase font-black tracking-wider text-slate-400 block flex items-center">
+            <i class="fa-solid fa-mobile-screen text-indigo-500 mr-1 text-[7px]"></i> Digital Medium
+          </span>
+          <strong id="pdf-profile-platform" class="text-slate-900 font-black block text-[11px] leading-tight truncate">Instagram (Social)</strong>
+          <span class="text-[8px] text-slate-500 font-medium truncate">Primary Screen Purpose</span>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Clinical Diagnostic Score Hero Box -->
+      <div class="border border-slate-200 rounded-xl p-3 bg-gradient-to-r from-slate-50 via-white to-indigo-50/30 flex items-center justify-between gap-3 pdf-avoid-break shadow-xs">
+        <div class="space-y-1 max-w-lg">
+          <div class="flex items-center space-x-1.5">
+            <span class="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-indigo-100 text-indigo-800 border border-indigo-200">
+              Diagnostic Stratification
+            </span>
+            <span id="pdf-conformal-badge" class="text-[9px] text-slate-500 font-mono font-bold">
+              95% Conformal Confidence
+            </span>
+          </div>
+          <h2 id="pdf-status-title" class="text-base font-black font-heading text-slate-900 tracking-tight leading-tight">
+            Optimal Circadian Equilibrium
+          </h2>
+          <p id="pdf-status-desc" class="text-[10px] text-slate-600 leading-relaxed font-medium">
+            Your physiological rhythms show adequate stability. Minor habit optimizations in screen boundaries and physical movement will accelerate academic focus.
+          </p>
+          <div class="pt-0.5 flex items-center space-x-2 text-[10px] font-bold">
+            <span class="text-slate-500">Confidence Band:</span>
+            <span id="pdf-confidence-val" class="font-mono text-indigo-700 bg-white px-1.5 py-0.2 rounded border border-indigo-200 font-black">[5.72 - 6.42] / 10</span>
+            <span class="text-slate-300">•</span>
+            <span class="text-slate-500">Cohort Rank:</span>
+            <span id="pdf-percentile-val" class="font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 font-black">P74 (Top 26%)</span>
+          </div>
+        </div>
+
+        <div class="text-center p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm shrink-0 min-w-[130px]">
+          <span class="text-[8px] uppercase font-black tracking-widest text-slate-400 block">Wellness Index</span>
+          <div class="flex items-baseline justify-center py-0.5">
+            <span id="pdf-score-num" class="text-3xl font-black font-mono text-indigo-600 tracking-tight leading-none">6.07</span>
+            <span class="text-slate-400 text-xs font-bold ml-1">/ 10</span>
+          </div>
+          <span id="pdf-score-badge" class="px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200 block mt-0.5">
+            Signal: Balanced
+          </span>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Quantified Circadian & Habit Biomarkers (6 High-Fidelity Cards) -->
+      <div class="space-y-1.5 pdf-avoid-break">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-1">
+          <h3 class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+            <i class="fa-solid fa-chart-simple text-indigo-600 mr-1 text-[10px]"></i> 1. Quantified Lifestyle Telemetry vs Clinical Guidelines
+          </h3>
+          <span class="text-[8px] text-slate-400 font-black uppercase">Standard Reference Ranges</span>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-2 text-xs">
+          <!-- Biomarker 1: Sleep -->
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-slate-600 font-bold flex items-center">🌙 Sleep Duration</span>
+              <span id="pdf-sleep-status" class="text-[7px] font-black uppercase px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Optimal</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <strong id="pdf-metric-sleep" class="text-xs font-black text-slate-900 font-mono">7.5h</strong>
+              <span class="text-[8px] text-slate-400 font-medium">Rec: 7.0 - 9.0h</span>
+            </div>
+            <div class="pdf-progress-track">
+              <div id="pdf-bar-sleep" class="pdf-progress-bar bg-indigo-600" style="width: 80%;"></div>
+            </div>
+          </div>
+
+          <!-- Biomarker 2: Screen Time -->
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-slate-600 font-bold flex items-center">⏳ Screen Usage</span>
+              <span id="pdf-screen-status" class="text-[7px] font-black uppercase px-1 py-0.2 rounded bg-amber-100 text-amber-800 border border-amber-200">Elevated</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <strong id="pdf-metric-screen" class="text-xs font-black text-slate-900 font-mono">6.5h</strong>
+              <span class="text-[8px] text-slate-400 font-medium">Rec: &lt; 5.0h</span>
+            </div>
+            <div class="pdf-progress-track">
+              <div id="pdf-bar-screen" class="pdf-progress-bar bg-amber-500" style="width: 65%;"></div>
+            </div>
+          </div>
+
+          <!-- Biomarker 3: Phone Unlocks -->
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-slate-600 font-bold flex items-center">🔓 Daily Unlocks</span>
+              <span id="pdf-unlocks-status" class="text-[7px] font-black uppercase px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Controlled</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <strong id="pdf-metric-unlocks" class="text-xs font-black text-slate-900 font-mono">60</strong>
+              <span class="text-[8px] text-slate-400 font-medium">Rec: &lt; 80 / day</span>
+            </div>
+            <div class="pdf-progress-track">
+              <div id="pdf-bar-unlocks" class="pdf-progress-bar bg-indigo-600" style="width: 60%;"></div>
+            </div>
+          </div>
+
+          <!-- Biomarker 4: Exercise -->
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-slate-600 font-bold flex items-center">🏃 Physical Exercise</span>
+              <span id="pdf-exercise-status" class="text-[7px] font-black uppercase px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Active</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <strong id="pdf-metric-exercise" class="text-xs font-black text-slate-900 font-mono">1.5h</strong>
+              <span class="text-[8px] text-slate-400 font-medium">Rec: &gt; 1.0h / day</span>
+            </div>
+            <div class="pdf-progress-track">
+              <div id="pdf-bar-exercise" class="pdf-progress-bar bg-emerald-500" style="width: 75%;"></div>
+            </div>
+          </div>
+
+          <!-- Biomarker 5: Study Hours -->
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-slate-600 font-bold flex items-center">📚 Study Focus</span>
+              <span id="pdf-study-status" class="text-[7px] font-black uppercase px-1 py-0.2 rounded bg-indigo-100 text-indigo-800 border border-indigo-200">Focused</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <strong id="pdf-metric-study" class="text-xs font-black text-slate-900 font-mono">5.0h</strong>
+              <span class="text-[8px] text-slate-400 font-medium">Rec: 4.0 - 6.0h</span>
+            </div>
+            <div class="pdf-progress-track">
+              <div id="pdf-bar-study" class="pdf-progress-bar bg-indigo-600" style="width: 70%;"></div>
+            </div>
+          </div>
+
+          <!-- Biomarker 6: Stress Level -->
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-slate-600 font-bold flex items-center">🧠 Perceived Stress</span>
+              <span id="pdf-stress-status" class="text-[7px] font-black uppercase px-1 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Stable</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <strong id="pdf-metric-stress" class="text-xs font-black text-slate-900">Low Stress</strong>
+              <span class="text-[8px] text-slate-400 font-medium">Sympathetic Calm</span>
+            </div>
+            <div class="pdf-progress-track">
+              <div id="pdf-bar-stress" class="pdf-progress-bar bg-emerald-500" style="width: 85%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Explainable AI (XAI) Attribution Breakdown -->
+      <div class="space-y-1.5 pdf-avoid-break">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-1">
+          <h3 class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+            <i class="fa-solid fa-network-wired text-indigo-600 mr-1 text-[10px]"></i> 2. Explainable AI (XAI) Marginal Feature Contributions
+          </h3>
+          <span class="text-[8px] text-slate-400 font-black uppercase">Normalized Impact vs Population Mean</span>
+        </div>
+
+        <table class="w-full text-xs border border-slate-200 rounded-lg overflow-hidden">
+          <thead class="bg-slate-100 text-slate-700 font-black text-[8px] uppercase tracking-wider">
+            <tr>
+              <th class="p-1.5 text-left">Lifestyle Biomarker</th>
+              <th class="p-1.5 text-left">Recorded Telemetry</th>
+              <th class="p-1.5 text-left">Population Baseline</th>
+              <th class="p-1.5 text-left">Impact Direction</th>
+              <th class="p-1.5 text-right">Marginal Impact</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-xai-table" class="divide-y divide-slate-200 text-[10px]">
+            <!-- Injected dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 5: 7-Day Structured Habit Prescription Checklist -->
+      <div class="space-y-1.5 pdf-avoid-break">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-1">
+          <h3 class="text-[11px] font-black uppercase tracking-wider text-slate-900 flex items-center font-heading">
+            <i class="fa-solid fa-calendar-check text-indigo-600 mr-1 text-[10px]"></i> 3. Evidence-Based 7-Day Habit Prescription Roadmap
+          </h3>
+          <span class="text-[8px] text-slate-400 font-black uppercase">Clinical Action Directives</span>
+        </div>
+
+        <div id="pdf-prescriptions-list" class="grid grid-cols-1 gap-1.5 text-xs">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+      <!-- SECTION 6: Official Verification Seal & Compliance Block -->
+      <div class="border-t border-slate-200 pt-2.5 flex items-center justify-between text-[8px] text-slate-500 pdf-avoid-break">
+        <div class="max-w-md space-y-0.5">
+          <strong class="text-slate-800 font-black block uppercase tracking-wide">Algorithmic Certification & Clinical Disclaimer</strong>
+          <p class="leading-tight text-slate-500 font-medium">
+            This report was computationally synthesized via ExtraTrees 300-Estimator Pipeline (92.30% R² validated accuracy). It offers an evidence-based behavioral roadmap and does not substitute psychiatric diagnostic consultation.
+          </p>
+          <div class="text-[7px] font-mono text-slate-400 pt-0.5">
+            <span>SHA-256 HASH: 8f9b2c3d4e5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c</span>
+          </div>
+        </div>
+
+        <!-- Official Seal & Signature Block -->
+        <div class="flex items-center space-x-4">
+          <div class="text-center space-y-0.5">
+            <div class="w-24 border-b border-slate-400 pb-0.5">
+              <span class="font-serif italic text-slate-700 text-[10px] font-bold">Dr. A. Vance, PhD</span>
+            </div>
+            <span class="text-[7px] uppercase font-black text-slate-400 block">Lead Clinical Advisor</span>
+          </div>
+
+          <div class="pdf-seal-crest shrink-0 scale-90">
+            <div class="pdf-seal-inner-ring"></div>
+            <i class="fa-solid fa-shield-halved text-indigo-600 text-xs mb-0.5"></i>
+            <span class="text-[7px] font-black text-indigo-950 uppercase leading-none font-heading">VERIFIED</span>
+            <span class="text-[6px] font-bold text-indigo-600 uppercase leading-none mt-0.5">MindEase AI</span>
+            <span class="text-[5px] font-extrabold text-slate-400 uppercase leading-none mt-0.5">SEALED</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
